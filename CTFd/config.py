@@ -82,6 +82,7 @@ config_ini.read(path)
 
 # fmt: off
 class ServerConfig(object):
+    DEBUG = True
     SECRET_KEY: str = empty_str_cast(config_ini["server"]["SECRET_KEY"]) \
         or gen_secret_key()
 
