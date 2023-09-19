@@ -1,0 +1,6 @@
+[submodule "CTFd/themes/CTFd/themes/CTFD-crimson-theme"]
+	path = CTFd/themes/CTFd/themes/CTFD-crimson-theme
+	url = https://github.com/0xdevsachin/CTFD-crimson-theme.git
+[submodule "CTFd/themes/CTFD-crimson-theme"]
+	path = CTFd/themes/CTFD-crimson-theme
+	url = https://github.com/0xdevsachin/CTFD-crimson-theme.git
