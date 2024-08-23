@@ -15,9 +15,12 @@
 @use "includes/icons/award-icons";
 @use "includes/icons/flag-icons";
 
-@use "includes/colors";
+@import "includes/colors";
+@import "includes/theme-fonts";
 
-
+* {
+    font-family: "Deacon" !important;
+}
 
 h1,
 h2 {
