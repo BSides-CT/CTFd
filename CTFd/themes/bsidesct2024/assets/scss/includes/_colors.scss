@@ -1,0 +1,57 @@
+// $theme-color-1: #f2ff00;
+$theme-color-1: #fffc05;
+// $theme-color-2: #fe06d0;
+$theme-color-2: #fc4ec8;
+$theme-color-3: #eeeeee;
+$theme-color-4: #000;
+$theme-color-5: #00ffbf;
+$theme-color-fg: #3d3d3d;
+
+// $theme-color-1: #4b4b4b;
+// $theme-color-2: #cacaca;
+// $theme-color-fg: #ffffff;
+
+$color-spread: 10%;
+
+$color-primary: $theme-color-1;
+$color-primary-lightest: lighten($color-primary, $color-spread * 2);
+$color-primary-lighter: lighten($color-primary, $color-spread);
+$color-primary-darker: darken($color-primary, $color-spread);
+$color-primary-darkest: darken($color-primary, $color-spread * 2);
+
+$color-secondary: $theme-color-2;
+$color-secondary-lightest: lighten($color-secondary, $color-spread * 2);
+$color-secondary-lighter: lighten($color-secondary, $color-spread);
+$color-secondary-darker: darken($color-secondary, $color-spread);
+$color-secondary-darkest: darken($color-secondary, $color-spread * 2);
+
+$color-fg: $theme-color-fg;
+$color-fg-lightest: lighten($color-fg, $color-spread * 2);
+$color-fg-lighter: lighten($color-fg, $color-spread);
+$color-fg-darker: darken($color-fg, $color-spread);
+$color-fg-darkest: darken($color-fg, $color-spread * 2);
+
+$color-white-full: #fff;
+$color-white: #eee;
+$color-white-lightest: lighten($color-white, $color-spread * 2);
+$color-white-lighter: lighten($color-white, $color-spread);
+$color-white-darker: darken($color-white, $color-spread);
+$color-white-darkest: darken($color-white, $color-spread * 2);
+
+$color-grey: #9195a2;
+$color-grey-lightest: lighten($color-grey, $color-spread * 2);
+$color-grey-lighter: lighten($color-grey, $color-spread);
+$color-grey-darker: darken($color-grey, $color-spread);
+$color-grey-darkest: darken($color-grey, $color-spread * 2);
+
+$color-black: #111;
+$color-black-lightest: lighten($color-black, $color-spread * 2);
+$color-black-lighter: lighten($color-black, $color-spread);
+$color-black-vanta: #000;
+$color-black-darkest: #000;
+
+$color-tertiary: $theme-color-5;
+$color-tertiary-lightest: lighten($color-tertiary, $color-spread * 2);
+$color-tertiary-lighter: lighten($color-tertiary, $color-spread);
+$color-tertiary-darker: darken($color-tertiary, $color-spread);
+$color-tertiary-darkest: darken($color-tertiary, $color-spread * 2);
