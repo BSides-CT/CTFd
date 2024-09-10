@@ -1,25 +1,42 @@
 @use "bootstrap/scss/bootstrap" as * with ($info: #5c728f);
 
-@use "includes/components/table";
-@use "includes/components/jumbotron";
-@use "includes/components/challenge";
-@use "includes/components/sticky-footer";
-@use "includes/components/graphs";
+$metric-menu-height-desktop: auto;
+$max-component-width: 1280px;
+$theme-static-root: "/themes/bsidesct2024/static";
 
-@use "includes/utils/fonts";
-@use "includes/utils/opacity";
-@use "includes/utils/min-height";
-@use "includes/utils/cursors";
-@use "includes/utils/lolight";
-
-@use "includes/icons/award-icons";
-@use "includes/icons/flag-icons";
-
+@import "includes/breakpoints";
 @import "includes/colors";
 @import "includes/theme-fonts";
+@import "./sections.scss";
 
-* {
-    font-family: "Deacon" !important;
+@import "includes/components/table";
+@import "includes/components/jumbotron";
+@import "includes/components/challenge";
+@import "includes/components/sticky-footer";
+@import "includes/components/graphs";
+
+@import "includes/utils/fonts";
+@import "includes/utils/opacity";
+@import "includes/utils/min-height";
+@import "includes/utils/cursors";
+@import "includes/utils/lolight";
+
+@import "includes/icons/award-icons";
+@import "includes/icons/flag-icons";
+
+
+body {
+    // background-color: $theme-color-3;
+    // font-family: $font-primary;
+
+    font-family: $font-primary;
+    color: $color-fg;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background: url($theme-static-root+"/img/paper.jpg");
+    background-color: $color-primary;
+    background-size: 100%;
+    font-size: 1.2em;
 }
 
 h1,
@@ -86,4 +103,28 @@ select.form-control {
     border-color: #a3d39c;
     box-shadow: 0 0 0 0.1rem #a3d39c;
     transition: background-color 0.3s, border-color 0.3s;
+}
+
+.modal-content {
+    box-shadow: 0 0 15px black;
+}
+
+@media (min-width: 768px) {
+    .navbar.fixed-top {
+        position: static;
+    }
+
+    main {
+        padding-top: unset;
+    }
+}
+
+
+#score-graph {
+    background-color: white;
+    box-shadow: 0 1em 15px #0005;
+}
+
+h1 {
+    padding-top: 1em;
 }

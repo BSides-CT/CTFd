@@ -26,9 +26,9 @@ $fa-font-path: "../webfonts";
 html,
 body,
 .container {
-    font-family: "Lato", sans-serif;
+    font-family: $font-primary;
 }
 
 .jumbotron .container {
-    font-family: "Raleway", sans-serif;
+    font-family: $font-subheading;
 }

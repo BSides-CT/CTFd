@@ -1,20 +1,142 @@
 /* Challenge styles
 -------------------------------------------------- */
 
-.challenge-desc {
-    overflow-wrap: anywhere;
+.challenge-button {
+    transition: all 0.1s;
 
-    img {
-        max-width: 100%;
+    transform: rotateZ(1deg);
+
+    border-radius: 0;
+    // border-top-left-radius: 10px;
+    // border-bottom-right-radius: 10px;
+    box-shadow: 6px 6px 4px #0006;
+    border: none;
+    background-image: linear-gradient(45deg, #0002, #fff1);
+    background-color: #fff;
+    color: $theme-color-4;
+    font-size: 1.1em;
+
+    p {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        color: $theme-color-6;
+        text-shadow: 1px 1px 1px $theme-color-5;
+    }
+
+    &:hover {
+        box-shadow: 2px 2px 2px #000A;
+        transform: rotateZ(-1deg);
+        background-color: #fff;
+        background-image: linear-gradient(25deg, #0002, #fff1);
+        color: $theme-color-4;
+    }
+
+    &.challenge-solved {
+        background-image: linear-gradient(45deg, #0005, #fff5);
+        background-color: $theme-color-5 !important;
+        color: $theme-color-4;
+        opacity: 0.75;
+        border: none;
+        box-shadow: 2px 2px 2px darken(#0FBA, 30%);
+
+        transform: rotateZ(-1deg);
+
+        p {
+            color: $theme-color-4;
+            text-shadow: unset;
+        }
+
+        &:hover {
+            // background-image: linear-gradient(25deg, #0005, #fff5);
+            opacity: 0.58;
+        }
     }
 }
 
-.challenge-button {
-    box-shadow: 3px 3px 3px var(--bs-secondary);
+#challenge {
+    .challenge-name {
+        color: $theme-color-6;
+        text-shadow: 2px 2px 1px $theme-color-5;
+
+        font-size: 1.8em;
+        line-height: 0.9em;
+    }
+
+    .challenge-value {
+        color: $theme-color-2;
+        font-weight: bold;
+        font-size: 2.5em;
+
+        @keyframes sway {
+            0% {
+                transform: rotateZ(3deg);
+            }
+
+            100% {
+                transform: rotateZ(-3deg);
+            }
+        }
+
+        animation: sway 1s ease-in-out 0.25s infinite alternate;
+    }
+
+    .challenge-desc {
+        overflow-wrap: anywhere;
+        line-height: 1.2em;
+        font-size: 1.1em;
+
+        img {
+            max-width: 100%;
+        }
+    }
+
+    .challenge-files {
+        a.btn {
+            border: none;
+            background-color: darken($theme-color-2, 10%);
+
+            &:hover {
+                background-color: darken($theme-color-2, 30%);
+            }
+        }
+    }
+
+    #challenge-input {
+        &::placeholder {
+            font-family: $font-system;
+            color: #AAA;
+        }
+    }
 }
 
-.challenge-solved {
-    background-color: #37d63e !important;
-    opacity: 0.6;
-    border: none;
+.category-header h3 {
+    //     display: inline;
+    //     font-family: $font-heading;
+    //     font-size: 2em;
+    //     text-transform: uppercase;
+    //     color: $theme-color-4;
+    //     background-color: white;
+    //     box-shadow: 1px 1px 3px #0005;
+
+    background: white;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
+    color: #000;
+    font-family: $font-heading;
+    font-size: 2em;
+    font-weight: 100;
+    line-height: 0.9em;
+    margin-bottom: 0.5em;
+    // margin: auto;
+    text-transform: uppercase;
+    text-wrap: nowrap;
+    // transform: rotateZ(2deg);
+    width: fit-content;
+
+    /* extends the x-edges of the punched tape effect */
+    &::before,
+    &::after {
+        background: currentColor;
+        content: "\00a0\00a0";
+    }
 }

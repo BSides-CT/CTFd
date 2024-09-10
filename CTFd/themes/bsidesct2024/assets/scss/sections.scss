@@ -1,0 +1,288 @@
+section {
+    max-width: $max-component-width;
+    margin-inline: auto;
+    overflow: hidden;
+
+    h2 {
+        background: white;
+        box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
+        color: #000;
+        font-family: $font-heading;
+        font-size: 2em;
+        font-weight: 100;
+        line-height: 0.9em;
+        margin-bottom: 0.5em;
+        margin: auto;
+        text-transform: uppercase;
+        text-wrap: nowrap;
+        transform: rotateZ(2deg);
+        width: fit-content;
+
+
+        /* extends the x-edges of the punched tape effect */
+        &::before,
+        &::after {
+            background: currentColor;
+            content: "\00a0\00a0";
+        }
+
+        &.red {
+            color: #A00;
+        }
+
+        &.blue {
+            color: #00A;
+        }
+
+        &.green {
+            color: #060;
+        }
+
+        &.alt {
+            transform: rotateZ(-2deg);
+        }
+
+        &.alt-straight {
+            transform: unset;
+        }
+
+        &.smaller {
+            font-size: 1.75rem;
+            margin-bottom: 0;
+        }
+    }
+
+    .subsection {
+        margin-top: 2em;
+
+        h2 {
+            font-size: 1.5em;
+        }
+    }
+
+    .heading {
+        text-align: center;
+        color: $color-fg;
+        font-size: 1rem;
+
+        p {
+            max-width: $max-component-width;
+            margin: 1em auto;
+            line-height: 1.3;
+
+            a {
+                font-weight: bold;
+            }
+        }
+
+        div {
+            padding: 0.5rem 0;
+            font-size: 0.75rem;
+            color: $color-grey;
+
+            .asterisk {
+                font-size: 0.75em;
+            }
+        }
+
+        a {
+            color: $color-secondary;
+        }
+
+        .submission-link a {
+            color: $color-secondary !important;
+            font-size: 1.5em;
+        }
+    }
+
+    hr {
+        border: none;
+        border-bottom: 0.25em solid $color-secondary;
+        width: 3rem;
+    }
+
+    ul {
+        display: block;
+        margin: 2em auto;
+        text-align: left;
+        max-width: 900px;
+
+        li {
+            margin: 0.75em 0;
+        }
+    }
+
+    p {
+        text-align: left;
+
+        &.center {
+            text-align: center;
+        }
+
+        padding-bottom: 1em;
+    }
+
+    /* -------------------------------------------------------------- */
+
+    $tear-top-mobile-height: 75px;
+
+    &.tear {
+        display: flex;
+        width: 100%;
+        background-color: transparent;
+        padding: 0;
+        margin-block: 0;
+        margin-block-start: 2em;
+        flex-direction: column;
+
+        .tear--top {
+            flex: 0 0 $tear-top-mobile-height;
+            background: url("/media/images/tear-top.png");
+            background-position: top center;
+            background-size: 100% $tear-top-mobile-height;
+            background-repeat: no-repeat;
+        }
+
+        .tear--bottom {
+            flex: 0 0 110px;
+            background: url("/media/images/tear-bottom.png");
+            background-position: bottom center;
+            background-repeat: no-repeat;
+            background-size: 100% 110px;
+        }
+
+        /* a bit of variety */
+        &:nth-of-type(odd) {
+            .tear--top {
+                transform: scaleX(-1);
+            }
+
+            .tear--bottom {
+                transform: scaleX(-1);
+            }
+        }
+
+        .tear--content {
+            background: white;
+            flex: auto;
+            padding: 0 1em;
+            font-size: 1em;
+            padding-top: 1em;
+
+            p {
+                // letter-spacing: 0.075rem;
+                line-height: 1.25em;
+                text-align: justify;
+            }
+
+            .col2 {
+                margin-block-start: 2em;
+                max-width: 1024px;
+
+                .subsection {
+                    margin-block: 0.5em;
+
+                    // border: 1px solid red;
+
+                    &.when p,
+                    &.where p {
+                        text-align: center;
+                    }
+                }
+
+                .value p.center {
+                    text-align: center;
+                }
+            }
+
+            /* NOTE: despite overflow being hidden in .subheading,
+            it still overflows because of the scale transform. This
+            is a known bug on some platforms (like mobile, int his
+            case). So we'll hide it from this level, too. */
+            overflow: hidden;
+
+            .subheading {
+
+                text-align: center;
+                margin-block: 0.75em;
+                transform: scaleX(110%);
+                width: 100%;
+                overflow: hidden;
+                color: $color-tertiary-darker;
+                font-family: $font-subheading;
+            }
+        }
+    }
+}
+
+@include respond-to("md") {
+    section {
+        margin: 0;
+        width: auto;
+        max-width: unset;
+
+        &.tear {
+
+            // NOTE: for md+ we'll stretch it to 100%; but
+            // below that it looks bad squished up to narrower layouts
+            .tear--top {
+                flex: 120px;
+                background-position: bottom;
+                background-size: 100%;
+            }
+
+            .tear--bottom {
+                flex: 100px;
+                background-size: 101% 100%; // HACK: 101% to avoid a ~1px gap
+                background-position: top;
+            }
+
+            .tear--content {
+                p {
+                    max-width: 80ch;
+                    margin: auto;
+                    font-size: 1.1rem;
+                }
+
+                .subsection {
+                    h2 {
+                        margin-bottom: 1em;
+                    }
+                }
+            }
+
+            .col2 {
+                .value p.center {
+                    margin-top: 1em;
+                }
+            }
+        }
+    }
+}
+
+@include respond-to("lg") {
+    section {
+        max-width: 1280px;
+        margin: auto;
+
+        &.tear {
+
+            // NOTE: for md+ we'll stretch it to 100%; but
+            // below that it looks bad squished up to narrower layouts
+            .tear--top {
+                flex: 140px;
+                background-size: contain;
+            }
+
+            .tear--bottom {
+                flex: 120px;
+                background-size: contain;
+            }
+
+            .tear--content {
+                padding: 0;
+                overflow: visible;
+            }
+        }
+    }
+}

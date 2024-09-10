@@ -10,9 +10,61 @@ main {
     padding: 2rem 1rem;
     margin-bottom: 2rem;
     text-align: center;
+    user-select: none;
 
-    background-color: var(--bs-dark);
-    color: var(--bs-white);
+    background-color: $theme-color-2;
+    background-image: url($theme-static-root + "/img/tiger-stripes.png");
+    background-repeat: repeat;
+
+    @keyframes scroll_jumbo {
+        0% {
+            background-position: 0 0;
+        }
+
+        100% {
+            background-position: 100% 100%
+        }
+    }
+
+    animation: scroll_jumbo 30s infinite linear;
+
+    // box-shadow: 0 1em 50px #b70081;
+    filter: drop-shadow(0 1em 20px #b70081);
+
+
+    .container {}
+
+    h1 {
+        color: $theme-color-1;
+        padding-top: 0;
+        font-size: 5em;
+        text-shadow: 1px 1px 1px $theme-color-6,
+            2px 2px 1px $theme-color-6,
+            3px 3px 1px $theme-color-6,
+            4px 4px 1px $theme-color-6,
+            5px 5px 1px $theme-color-6,
+            6px 6px 1px $theme-color-6,
+            11px 11px 5px $theme-color-4;
+
+        @keyframes identifier {
+            0% {
+                text-transform: uppercase;
+            }
+
+            50% {
+                text-transform: lowercase;
+            }
+
+            100% {
+                text-transform: uppercase;
+            }
+        }
+
+        animation: identifier 1.5s infinite;
+
+
+    }
+
 }
 
 @media (min-width: 576px) {
@@ -21,9 +73,22 @@ main {
     }
 }
 
-// @media (min-width: 768px) {
-//   .jumbotron {
-//     // I kind of like this, but it could be discussed
-//     clip-path: polygon(0 0, 100% 0, 100% 90%, 0% 100%);
-//   }
-// }
+@media (min-width: 768px) {
+    .jumbotron {
+        // I kind of like this, but it could be discussed
+        // clip-path: polygon(0 0, 100% 0, 100% 90%, 0% 100%);
+        clip-path: polygon(0px 51px, 100% 0px, 100% 74.08%, 0% 100%);
+
+        h1 {
+            transform: rotate(-2deg);
+        }
+    }
+}
+
+select#field,
+input#q,
+.table {
+    background-color: white !important;
+    color: black;
+    border-color: unset;
+}
