@@ -13,16 +13,18 @@ main {
     user-select: none;
 
     background-color: $theme-color-2;
-    background-image: url($theme-static-root + "/img/tiger-stripes.png");
+    background-image: url($theme-static-root + "/img/tiger-stripes-compressed.png");
     background-repeat: repeat;
 
     @keyframes scroll_jumbo {
         0% {
-            background-position: 0 0;
+            background-position-x: 0;
+            background-position-y: 0;
         }
 
         100% {
-            background-position: 100% 100%
+            background-position-x: -1620px;
+            background-position-y: 518px;
         }
     }
 
@@ -30,9 +32,6 @@ main {
 
     // box-shadow: 0 1em 50px #b70081;
     filter: drop-shadow(0 1em 20px #b70081);
-
-
-    .container {}
 
     h1 {
         color: $theme-color-1;

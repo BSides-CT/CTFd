@@ -26,14 +26,11 @@ $theme-static-root: "/themes/bsidesct2024/static";
 
 
 body {
-    // background-color: $theme-color-3;
-    // font-family: $font-primary;
-
     font-family: $font-primary;
     color: $color-fg;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background: url($theme-static-root+"/img/paper.jpg");
+    background: url($theme-static-root+"/img/paper-compressed.jpg");
     background-color: $color-primary;
     background-size: 100%;
     font-size: 1.2em;
