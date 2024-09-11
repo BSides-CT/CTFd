@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <div class="container">
+<div class="container page">
     {{ content | safe }}
-  </div>
+</div>
 {% endblock %}
 
 {% block scripts %}
-  {{ Assets.js("assets/js/page.js") }}
+{{ Assets.js("assets/js/page.js") }}
 {% endblock %}

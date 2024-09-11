@@ -125,3 +125,37 @@ select.form-control {
 h1 {
     padding-top: 1em;
 }
+
+
+.container.page {
+    h1 {
+        padding-top: 1rem;
+        color: $theme-color-6;
+        text-shadow: 2px 2px 2px $theme-color-5;
+        font-size: 3em;
+        text-align: center;
+    }
+
+    ul {
+        list-style: none;
+        font-size: 1.25em;
+
+        li {
+            padding-bottom: 1em;
+
+            &::before {
+                background-image: url($theme-static-root + "/img/skelptr.png");
+                background-size: contain;
+                width: 64px;
+                margin-right: .5em;
+                display: inline-block;
+                height: 27px;
+                content: '';
+                position: relative;
+                top: 9px;
+                filter: drop-shadow(3px 3px 1px $theme-color-5) drop-shadow(-2px -2px 1px $theme-color-2);
+            }
+        }
+    }
+
+}
