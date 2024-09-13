@@ -56,7 +56,7 @@ def confirm(data=None):
         log(
             "registrations",
             "info",
-            format="successful confirmation for {name}",
+            format="{ip} - successful confirmation for {name}",
             name=user.name,
         )
         db.session.commit()
@@ -110,7 +110,7 @@ def confirm(data=None):
             log(
                 "registrations",
                 "info",
-                format="- {name} initiated a confirmation email resend",
+                format="{ip} - {name} initiated a confirmation email resend",
                 name=user.name,
             )
             if verify_email_address_result[0] is False:
@@ -197,7 +197,7 @@ def reset_password(data=None):
             log(
                 "logins",
                 "info",
-                format="- successful password reset for {name}",
+                format="{ip} - successful password reset for {name}",
                 name=user.name,
             )
             db.session.close()
@@ -451,7 +451,7 @@ def register():
                     log(
                         "registrations",
                         "info",
-                        format="- {name} registered (UNCONFIRMED) with {email}",
+                        format="{ip} - {name} registered (UNCONFIRMED) with {email}",
                         name=user.name,
                         email=user.email,
                     )
@@ -519,7 +519,7 @@ def register():
         log(
             "registrations",
             "info",
-            format="- {name} registered with {email}",
+            format="{ip} - {name} registered with {email}",
             name=user.name,
             email=user.email,
         )
@@ -561,7 +561,7 @@ def login():
                 log(
                     "logins",
                     "info",
-                    "- {name} logged in",
+                    "{ip} - {name} logged in",
                     name=user.name,
                 )
 
@@ -577,7 +577,7 @@ def login():
                 log(
                     "logins",
                     "warning",
-                    "- submitted invalid password for {name}",
+                    "{ip} - submitted invalid password for {name}",
                     name=user.name,
                 )
                 errors.append("Your username or password is incorrect")
@@ -588,7 +588,7 @@ def login():
             log(
                 "logins",
                 "warning",
-                "- submitted invalid account information",
+                "{ip} - submitted invalid account information",
             )
             errors.append("Your username or password is incorrect")
             db.session.close()
@@ -636,7 +636,7 @@ def oauth_redirect():
         log(
             "logins",
             "warning",
-            "- OAuth State validation mismatch",
+            "{ip} - OAuth State validation mismatch",
         )
         error_for(endpoint="auth.login", message="OAuth State validation mismatch.")
         return redirect(url_for("auth.login"))
@@ -704,7 +704,7 @@ def oauth_redirect():
                     log(
                         "logins",
                         "warning",
-                        "- Public registration via MLC blocked",
+                        "{ip} - Public registration via MLC blocked",
                     )
                     error_for(
                         endpoint="auth.login",
@@ -755,11 +755,11 @@ def oauth_redirect():
 
             return redirect(url_for("challenges.listing"))
         else:
-            log("logins", "warning", "- OAuth token retrieval failure")
+            log("logins", "warning", "{ip} - OAuth token retrieval failure")
             error_for(endpoint="auth.login", message="OAuth token retrieval failure.")
             return redirect(url_for("auth.login"))
     else:
-        log("logins", "info", "- Received redirect without OAuth code")
+        log("logins", "info", "{ip} - Received redirect without OAuth code")
         error_for(
             endpoint="auth.login", message="Received redirect without OAuth code."
         )
