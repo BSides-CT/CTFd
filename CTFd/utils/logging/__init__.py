@@ -16,13 +16,6 @@ def log(logger, severity, format, **kwargs):
         "ip": get_ip(),
     }
     logger = logging.getLogger(logger)
-    formatter = logging.Formatter(
-        "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
-    )
-    handler = logging.StreamHandler()
-    handler.setFormatter(formatter)
-    logger.addHandler(handler)
-    logger.propagate = False
     props.update(kwargs)
     msg = format.format(**props)
     if severity == "debug":

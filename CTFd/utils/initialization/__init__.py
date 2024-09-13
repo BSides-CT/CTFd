@@ -1,5 +1,6 @@
 import datetime
 import logging
+import logging.handlers
 import os
 import sys
 
@@ -134,10 +135,30 @@ def init_logs(app):
     logger_submissions = logging.getLogger("submissions")
     logger_logins = logging.getLogger("logins")
     logger_registrations = logging.getLogger("registrations")
+    logger_email = logging.getLogger("email")
 
     logger_submissions.setLevel(logging.INFO)
     logger_logins.setLevel(logging.INFO)
     logger_registrations.setLevel(logging.INFO)
+    logger_email.setLevel(logging.INFO)
+
+    submissions_formatter = logging.Formatter(
+        "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    )
+    logins_formatter = logging.Formatter(
+        "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    )
+    registrations_formatter = formatter = logging.Formatter(
+        "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    )
+    email_formatter = logging.Formatter(
+        "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    )
+
+    logger_submissions.setFormatter(submissions_formatter)
+    logger_logins.setFormatter(logins_formatter)
+    logger_registrations.setFormatter(registrations_formatter)
+    logger_email.setFormatter(email_formatter)
 
     log_dir = app.config["LOG_FOLDER"]
     if not os.path.exists(log_dir):
@@ -147,6 +168,7 @@ def init_logs(app):
         "submissions": os.path.join(log_dir, "submissions.log"),
         "logins": os.path.join(log_dir, "logins.log"),
         "registrations": os.path.join(log_dir, "registrations.log"),
+        "email": os.path.join(log_dir, "email.log"),
     }
 
     try:
@@ -163,10 +185,14 @@ def init_logs(app):
         registration_log = logging.handlers.RotatingFileHandler(
             logs["registrations"], maxBytes=10485760, backupCount=5
         )
+        email_log = logging.handlers.RotatingFileHandler(
+            logs["email"], maxBytes=10485760, backupCount=5
+        )
 
         logger_submissions.addHandler(submission_log)
         logger_logins.addHandler(login_log)
         logger_registrations.addHandler(registration_log)
+        logger_email.addHandler(email_log)
     except IOError:
         pass
 
@@ -175,10 +201,12 @@ def init_logs(app):
     logger_submissions.addHandler(stdout)
     logger_logins.addHandler(stdout)
     logger_registrations.addHandler(stdout)
+    logger_email.addHandler(stdout)
 
     logger_submissions.propagate = 0
     logger_logins.propagate = 0
     logger_registrations.propagate = 0
+    logger_email.propagate = 0
 
 
 def init_events(app):
