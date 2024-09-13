@@ -19,10 +19,16 @@ def log(logger, severity, format, **kwargs):
     }
     # This is below props beause we are using logger as a string in props before it becomes a logger object.
     logger = logging.getLogger(logger)
+
     props.update(kwargs)
     # Putting the standard segment after props update allows override of defaults if needed
-    standard_log_segment = "[{date}] [{logger}] [{severity}] {ip} "
-    msg = (standard_log_segment + format).format(**props)
+    formatter = logging.Formatter(
+        "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    )
+    handler = logging.StreamHandler()
+    handler.setFormatter(formatter)
+    logger.addHandler(handler)
+    msg = format.format(**props)
     if severity == "debug":
         logger.debug(msg)
     elif severity == "info":
