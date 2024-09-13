@@ -9,14 +9,20 @@ from CTFd.utils.user import get_ip
 
 # Valid Severities: debug, info, warning, error, critical
 def log(logger, severity, format, **kwargs):
-    logger = logging.getLogger(logger)
+    # Standard properties used in the standard log prefix and available for custom message segments.
     props = {
         "id": session.get("id"),
         "date": time.strftime("%m/%d/%Y %X"),
         "ip": get_ip(),
+        "severity": severity.upper(),
+        "logger": logger.upper(),
     }
+    # This is below props beause we are using logger as a string in props before it becomes a logger object.
+    logger = logging.getLogger(logger)
     props.update(kwargs)
-    msg = format.format(**props)
+    # Putting the standard segment after props update allows override of defaults if needed
+    standard_log_segment = "[{date}] [{logger}] [{severity}] {ip} "
+    msg = (standard_log_segment + format).format(**props)
     if severity == "debug":
         logger.debug(msg)
     elif severity == "info":
@@ -29,6 +35,6 @@ def log(logger, severity, format, **kwargs):
         logger.critical(msg)
     else:
         logger.warning(
-            "Subsequent log message submitted with invalid severity. Defaulting to info"
+            "Subsequent log message submitted with invalid severity. Defaulting to info."
         )
         logger.info(msg)
