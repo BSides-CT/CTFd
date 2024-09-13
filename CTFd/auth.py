@@ -56,7 +56,7 @@ def confirm(data=None):
         log(
             "registrations",
             "info",
-            format="[{date}] {ip} - successful confirmation for {name}",
+            format="successful confirmation for {name}",
             name=user.name,
         )
         db.session.commit()
@@ -82,7 +82,7 @@ def confirm(data=None):
             log(
                 "registrations",
                 "info",
-                format="[{date}] {ip} - {name} initiated a confirmation email resend",
+                format="- {name} initiated a confirmation email resend",
                 name=user.name,
             )
             return render_template(
@@ -144,7 +144,7 @@ def reset_password(data=None):
             log(
                 "logins",
                 "info",
-                format="[{date}] {ip} - successful password reset for {name}",
+                format="- successful password reset for {name}",
                 name=user.name,
             )
             db.session.close()
@@ -351,7 +351,7 @@ def register():
                     log(
                         "registrations",
                         "info",
-                        format="[{date}] {ip} - {name} registered (UNCONFIRMED) with {email}",
+                        format="- {name} registered (UNCONFIRMED) with {email}",
                         name=user.name,
                         email=user.email,
                     )
@@ -367,7 +367,7 @@ def register():
         log(
             "registrations",
             "info",
-            format="[{date}] {ip} - {name} registered with {email}",
+            format="- {name} registered with {email}",
             name=user.name,
             email=user.email,
         )
@@ -409,7 +409,7 @@ def login():
                 log(
                     "logins",
                     "info",
-                    "[{date}] {ip} - {name} logged in",
+                    "- {name} logged in",
                     name=user.name,
                 )
 
@@ -425,7 +425,7 @@ def login():
                 log(
                     "logins",
                     "warning",
-                    "[{date}] {ip} - submitted invalid password for {name}",
+                    "- submitted invalid password for {name}",
                     name=user.name,
                 )
                 errors.append("Your username or password is incorrect")
@@ -436,7 +436,7 @@ def login():
             log(
                 "logins",
                 "warning",
-                "[{date}] {ip} - submitted invalid account information",
+                "- submitted invalid account information",
             )
             errors.append("Your username or password is incorrect")
             db.session.close()
@@ -484,7 +484,7 @@ def oauth_redirect():
         log(
             "logins",
             "warning",
-            "[{date}] {ip} - OAuth State validation mismatch",
+            "- OAuth State validation mismatch",
         )
         error_for(endpoint="auth.login", message="OAuth State validation mismatch.")
         return redirect(url_for("auth.login"))
@@ -552,7 +552,7 @@ def oauth_redirect():
                     log(
                         "logins",
                         "warning",
-                        "[{date}] {ip} - Public registration via MLC blocked",
+                        "- Public registration via MLC blocked",
                     )
                     error_for(
                         endpoint="auth.login",
@@ -603,11 +603,11 @@ def oauth_redirect():
 
             return redirect(url_for("challenges.listing"))
         else:
-            log("logins", "warning", "[{date}] {ip} - OAuth token retrieval failure")
+            log("logins", "warning", "- OAuth token retrieval failure")
             error_for(endpoint="auth.login", message="OAuth token retrieval failure.")
             return redirect(url_for("auth.login"))
     else:
-        log("logins", "info", "[{date}] {ip} - Received redirect without OAuth code")
+        log("logins", "info", "- Received redirect without OAuth code")
         error_for(
             endpoint="auth.login", message="Received redirect without OAuth code."
         )
@@ -619,3 +619,4 @@ def logout():
     if current_user.authed():
         logout_user()
     return redirect(url_for("views.static_html"))
+ 
