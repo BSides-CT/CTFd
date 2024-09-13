@@ -61,7 +61,35 @@ def confirm(data=None):
         )
         db.session.commit()
         clear_user_session(user_id=user.id)
-        email.successful_registration_notification(user.email)
+        successful_registration_notification_response = (
+            email.successful_registration_notification(user.email)
+        )
+        if successful_registration_notification_response[0] is False:
+            log(
+                "email",
+                "error",
+                "Unable to send successful registration notification for user with ID {user_id} and email {user_email}. Error: {error}",
+                user_id=user.id,
+                user_email=user.email,
+                error=successful_registration_notification_response[1],
+            )
+        elif successful_registration_notification_response[0] is True:
+            log(
+                "email",
+                "info",
+                "Sent successful registration notification for user with id {user_id} and email {user_email}.",
+                user_id=user.id,
+                user_email=user.email,
+            )
+        else:
+            log(
+                "email",
+                "warning",
+                "Improperly formatted response from SMTP provider when attempting to send successful registration email for user with id {user_id} and email {user_email}.",
+                user_id=user.id,
+                user_email=user.email,
+            )
+
         db.session.close()
         if current_user.authed():
             return redirect(url_for("challenges.listing"))
@@ -78,13 +106,38 @@ def confirm(data=None):
     if data is None:
         if request.method == "POST":
             # User wants to resend their confirmation email
-            email.verify_email_address(user.email)
+            verify_email_address_result = email.verify_email_address(user.email)
             log(
                 "registrations",
                 "info",
                 format="- {name} initiated a confirmation email resend",
                 name=user.name,
             )
+            if verify_email_address_result[0] is False:
+                log(
+                    "email",
+                    "error",
+                    "Unable to send verification email for user with ID {user_id} and email {user_email}. Error: {error}",
+                    user_id=user.id,
+                    user_email=user.email,
+                    error=verify_email_address_result[1],
+                )
+            elif verify_email_address_result[0] is True:
+                log(
+                    "email",
+                    "info",
+                    "Sent successful verification email for user with id {user_id} and email {user_email}.",
+                    user_id=user.id,
+                    user_email=user.email,
+                )
+            else:
+                log(
+                    "email",
+                    "warning",
+                    "Improperly formatted response from SMTP provider when attempting to send verification email for user with id {user_id} and email {user_email}.",
+                    user_id=user.id,
+                    user_email=user.email,
+                )
             return render_template(
                 "confirm.html", infos=[f"Confirmation email sent to {user.email}!"]
             )
@@ -148,7 +201,32 @@ def reset_password(data=None):
                 name=user.name,
             )
             db.session.close()
-            email.password_change_alert(user.email)
+            password_change_alert_result = email.password_change_alert(user.email)
+            if password_change_alert_result[0] is False:
+                log(
+                    "email",
+                    "error",
+                    "Unable to send password change alert email for user with ID {user_id} and email {user_email}. Error: {error}",
+                    user_id=user.id,
+                    user_email=user.email,
+                    error=password_change_alert_result[1],
+                )
+            elif password_change_alert_result[0] is True:
+                log(
+                    "email",
+                    "info",
+                    "Sent successful password change alert email for user with id {user_id} and email {user_email}.",
+                    user_id=user.id,
+                    user_email=user.email,
+                )
+            else:
+                log(
+                    "email",
+                    "warning",
+                    "Improperly formatted response from SMTP provider when attempting to send password change alert email for user with id {user_id} and email {user_email}.",
+                    user_id=user.id,
+                    user_email=user.email,
+                )
             return redirect(url_for("auth.login"))
 
     if request.method == "POST":
@@ -173,7 +251,29 @@ def reset_password(data=None):
                 ],
             )
 
-        email.forgot_password(email_address)
+        forgot_password_result = email.forgot_password(email_address)
+        if forgot_password_result[0] is False:
+            log(
+                "email",
+                "error",
+                "Unable to send forgot password email for email {user_email}. Error: {error}",
+                user_email=email_address,
+                error=forgot_password_result[1],
+            )
+        elif forgot_password_result[0] is True:
+            log(
+                "email",
+                "info",
+                "Sent successful forgot password email for email {user_email}.",
+                user_email=email_address,
+            )
+        else:
+            log(
+                "email",
+                "warning",
+                "Improperly formatted response from SMTP provider when attempting to send forgot password email for email {user_email}.",
+                user_email=email_address,
+            )
 
         return render_template(
             "reset_password.html",
@@ -355,15 +455,67 @@ def register():
                         name=user.name,
                         email=user.email,
                     )
-                    email.verify_email_address(user.email)
+                    verify_email_address_result = email.verify_email_address(user.email)
+                    if verify_email_address_result[0] is False:
+                        log(
+                            "email",
+                            "error",
+                            "Unable to send verification email for user with ID {user_id} and email {user_email}. Error: {error}",
+                            user_id=user.id,
+                            user_email=user.email,
+                            error=verify_email_address_result[1],
+                        )
+                    elif verify_email_address_result[0] is True:
+                        log(
+                            "email",
+                            "info",
+                            "Sent successful verification email for user with id {user_id} and email {user_email}.",
+                            user_id=user.id,
+                            user_email=user.email,
+                        )
+                    else:
+                        log(
+                            "email",
+                            "warning",
+                            "Improperly formatted response from SMTP provider when attempting to send verification email for user with id {user_id} and email {user_email}.",
+                            user_id=user.id,
+                            user_email=user.email,
+                        )
+
                     db.session.close()
                     return redirect(url_for("auth.confirm"))
                 else:  # Don't care about confirming users
                     if (
                         config.can_send_mail()
                     ):  # We want to notify the user that they have registered.
-                        email.successful_registration_notification(user.email)
-
+                        successful_registration_notification = (
+                            email.successful_registration_notification(user.email)
+                        )
+                        if successful_registration_notification[0] is False:
+                            log(
+                                "email",
+                                "error",
+                                "Unable to send successful registration notification email for user with ID {user_id} and email {user_email}. Error: {error}",
+                                user_id=user.id,
+                                user_email=user.email,
+                                error=successful_registration_notification[1],
+                            )
+                        elif successful_registration_notification[0] is True:
+                            log(
+                                "email",
+                                "info",
+                                "Sent successful registration notification email for user with id {user_id} and email {user_email}.",
+                                user_id=user.id,
+                                user_email=user.email,
+                            )
+                        else:
+                            log(
+                                "email",
+                                "warning",
+                                "Improperly formatted response from SMTP provider when attempting to send successful registration notification email for user with id {user_id} and email {user_email}.",
+                                user_id=user.id,
+                                user_email=user.email,
+                            )
         log(
             "registrations",
             "info",
@@ -619,4 +771,3 @@ def logout():
     if current_user.authed():
         logout_user()
     return redirect(url_for("views.static_html"))
- 
