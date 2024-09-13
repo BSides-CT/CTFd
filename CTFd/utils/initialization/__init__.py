@@ -142,24 +142,6 @@ def init_logs(app):
     logger_registrations.setLevel(logging.INFO)
     logger_email.setLevel(logging.INFO)
 
-    submissions_formatter = logging.Formatter(
-        "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
-    )
-    logins_formatter = logging.Formatter(
-        "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
-    )
-    registrations_formatter = formatter = logging.Formatter(
-        "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
-    )
-    email_formatter = logging.Formatter(
-        "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
-    )
-
-    logger_submissions.setFormatter(submissions_formatter)
-    logger_logins.setFormatter(logins_formatter)
-    logger_registrations.setFormatter(registrations_formatter)
-    logger_email.setFormatter(email_formatter)
-
     log_dir = app.config["LOG_FOLDER"]
     if not os.path.exists(log_dir):
         os.makedirs(log_dir)
@@ -189,6 +171,25 @@ def init_logs(app):
             logs["email"], maxBytes=10485760, backupCount=5
         )
 
+        # Formatters allow setting the default log template
+        submissions_formatter = logging.Formatter(
+            "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+        )
+        logins_formatter = logging.Formatter(
+            "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+        )
+        registrations_formatter = formatter = logging.Formatter(
+            "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+        )
+        email_formatter = logging.Formatter(
+            "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+        )
+
+        submission_log.setFormatter(submissions_formatter)
+        login_log.setFormatter(logins_formatter)
+        registration_log.setFormatter(registrations_formatter)
+        email_log.setFormatter(email_formatter)
+
         logger_submissions.addHandler(submission_log)
         logger_logins.addHandler(login_log)
         logger_registrations.addHandler(registration_log)
@@ -197,6 +198,10 @@ def init_logs(app):
         pass
 
     stdout = logging.StreamHandler(stream=sys.stdout)
+    stdout_formatter = logging.Formatter(
+        "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    )
+    stdout.setFormatter(stdout_formatter)
 
     logger_submissions.addHandler(stdout)
     logger_logins.addHandler(stdout)
