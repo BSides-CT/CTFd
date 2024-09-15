@@ -50,6 +50,7 @@
             <td><b>{% trans %}Website{% endtrans %}</b></td>
             <td class="d-none d-md-table-cell"><b>{% trans %}Affiliation{% endtrans %}</b></td>
             <td class="d-none d-md-table-cell"><b>{% trans %}Country{% endtrans %}</b></td>
+            <td class="d-none d-md-table-cell"><b>{% trans %}# Members{% endtrans %}</b></td>
           </tr>
           </thead>
           <tbody>
@@ -109,6 +110,14 @@
                 {% endif %}
 							</span>
               </td>
+
+              <td class="d-none d-md-table-cell">
+                <span></span>
+                    <i class="flag-{{ team.country.lower() }}"></i>
+                    {{ len(team.members) }}
+                  {% endif %}
+                </span>
+                </td>
             </tr>
           {% endfor %}
 
