@@ -113,8 +113,7 @@
 
               <td class="d-none d-md-table-cell">
                 <span></span>
-                    <i class="flag-{{ team.country.lower() }}"></i>
-                    {{ len(team.members) }}
+                    {{ team.members |length }}
                 </span>
                 </td>
             </tr>
