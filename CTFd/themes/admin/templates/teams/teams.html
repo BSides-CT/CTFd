@@ -138,9 +138,9 @@
 							{{ team.members |length }}
 						
 						</td>
-						<td class="team-banned d-md-table-cell d-lg-table-cell text-center" value="{{ team.bracket }}">
+						<td class="team-banned d-md-table-cell d-lg-table-cell text-center" value="{{ team.bracket_id }}">
 							{% if team.bracket %}
-								<span class="badge badge-danger">{{ team.bracket }}</span>
+								<span class="badge badge-danger">{{ team.bracket_id }}</span>
 							{% endif %}
 						</td>
 					</tr>
