@@ -1,32 +1,48 @@
 // BSides CT 2026 Theme
-// Color palette extracted from bsidesct.org
-// Warm cream background, dark text, sage green/gold/blue/red accents
+// Matched to bsidesct.org design system
 
-// BSidesCT brand colors
-$bsides-cream: #f4f2ee;
+// BSidesCT brand colors (from bsidesct.org CSS variables)
+$bsides-white: #f4f2ee;
 $bsides-dark: #1c1c1c;
-$bsides-sage: #7a8b6c;
-$bsides-gold: #e8a820;
+$bsides-mid: #5a5a5a;
+$bsides-light: #d8d4cc;
+$bsides-grey-green: #7a8b6c;
+$bsides-gg-dark: #5b6b50;
+$bsides-gg-light: #c2cebc;
 $bsides-blue: #2b8fd8;
-$bsides-red: #ff0000;
-$bsides-gray: #5a5a5a;
-$bsides-light-gray: #e0ddd8;
+$bsides-blue-dark: #1958d2;
+$bsides-blue-light: #eaf4fc;
+$bsides-ochre: #e8a820;
+$bsides-ochre-dark: #a55716;
+$bsides-ochre-light: #fdf5dc;
+$bsides-red: #e94862;
 
 @use "bootstrap/scss/bootstrap" as * with (
-  $primary: $bsides-sage,
+  $primary: $bsides-grey-green,
   $secondary: $bsides-dark,
-  $success: $bsides-sage,
+  $success: $bsides-grey-green,
   $danger: $bsides-red,
-  $warning: $bsides-gold,
+  $warning: $bsides-ochre,
   $info: $bsides-blue,
-  $light: $bsides-cream,
+  $light: $bsides-white,
   $dark: $bsides-dark,
-  $body-bg: $bsides-cream,
+  $body-bg: $bsides-white,
   $body-color: $bsides-dark,
-  $link-color: $bsides-sage,
-  $link-hover-color: $bsides-dark,
-  $font-family-sans-serif: #{"Helvetica Neue", Helvetica, "Nimbus Sans L", Arial, sans-serif},
-  $headings-font-weight: 700
+  $link-color: $bsides-grey-green,
+  $link-hover-color: $bsides-gg-dark,
+  $font-family-sans-serif: #{"Inter", "Helvetica Neue", Helvetica, "Nimbus Sans L", Arial, sans-serif},
+  $font-size-base: 1rem,
+  $headings-font-weight: 700,
+  $border-radius: 0px,
+  $border-radius-sm: 0px,
+  $border-radius-lg: 0px,
+  $btn-border-radius: 0px,
+  $btn-border-radius-sm: 0px,
+  $btn-border-radius-lg: 0px,
+  $card-border-radius: 0px,
+  $navbar-light-color: $bsides-mid,
+  $navbar-light-hover-color: $bsides-dark,
+  $navbar-light-active-color: $bsides-dark
 );
 
 @use "includes/components/table";
@@ -44,19 +60,36 @@ $bsides-light-gray: #e0ddd8;
 @use "includes/icons/award-icons";
 @use "includes/icons/flag-icons";
 
-// Typography
-h1,
-h2 {
-  font-weight: 700;
-  letter-spacing: 2px;
-  text-transform: uppercase;
+// Import Inter from Google Fonts
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+
+// Typography - matching bsidesct.org
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.55;
 }
 
+h1,
+h2,
 h3,
 h4,
 h5,
 h6 {
-  font-weight: 600;
+  font-weight: 700;
+  line-height: 1.2;
+  text-transform: uppercase;
+  color: $bsides-dark;
+}
+
+h1 {
+  font-size: 1.75em;
+  line-height: 1.1;
+}
+
+h2 {
+  font-size: 1.25em;
+  line-height: 1.15;
 }
 
 a {
@@ -65,9 +98,9 @@ a {
 }
 
 blockquote {
-  border-left: 4px solid $bsides-sage;
+  border-left: 4px solid $bsides-grey-green;
   padding-left: 15px;
-  background: rgba($bsides-sage, 0.05);
+  background: rgba($bsides-grey-green, 0.05);
 }
 
 input,
@@ -92,24 +125,26 @@ select {
   background-size: 8px 10px;
 }
 
-// Navbar styling to match bsidesct.org
+// Navbar - sticky, matching bsidesct.org
 .navbar {
-  background-color: $bsides-cream !important;
-  border-bottom: 1px solid $bsides-light-gray;
+  background-color: $bsides-white !important;
+  border-bottom: 1px solid $bsides-light;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 
   .navbar-brand {
     font-weight: 700;
     text-transform: uppercase;
     color: $bsides-dark;
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
   }
 
   .nav-link {
     font-weight: 700;
     text-transform: uppercase;
-    color: $bsides-gray !important;
+    color: $bsides-mid !important;
     font-size: 0.85rem;
-    letter-spacing: 0.5px;
 
     &:hover,
     &.active {
@@ -118,120 +153,122 @@ select {
   }
 }
 
-// Buttons - match the bsidesct.org style
-.btn-primary {
-  background-color: $bsides-sage;
-  border-color: $bsides-sage;
-  color: #fff;
+// Buttons - matching bsidesct.org (no border-radius, bold, uppercase)
+.btn {
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  border-radius: 0;
+  padding: 0.75rem 1.5rem;
+  letter-spacing: 0.25px;
+}
+
+.btn-primary {
+  background-color: $bsides-blue;
+  border-color: $bsides-blue;
+  color: #fff;
 
   &:hover,
   &:focus {
-    background-color: darken($bsides-sage, 10%);
-    border-color: darken($bsides-sage, 10%);
+    background-color: $bsides-blue-dark;
+    border-color: $bsides-blue-dark;
     color: #fff;
   }
 }
 
 .btn-outline-primary {
-  border-color: $bsides-sage;
-  color: $bsides-sage;
-  font-weight: 700;
-  text-transform: uppercase;
+  border-color: $bsides-grey-green;
+  color: $bsides-grey-green;
 
   &:hover,
   &:focus {
-    background-color: $bsides-sage;
+    background-color: $bsides-grey-green;
     color: #fff;
   }
 }
 
-// CTA buttons (like "Get Tickets!" on the main site - red outlined)
-.btn-danger,
-.btn-outline-danger {
-  font-weight: 700;
-  text-transform: uppercase;
+.btn-danger {
+  background-color: $bsides-red;
+  border-color: $bsides-red;
 }
 
-// Cards and panels
+// Cards
 .card {
-  border: 1px solid $bsides-light-gray;
+  border: 1px solid $bsides-light;
   border-radius: 0;
   box-shadow: none;
 }
 
 // Challenge cards
 .challenge-button {
-  border: 1px solid $bsides-light-gray;
+  border: 1px solid $bsides-light;
+  border-radius: 0;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 
   &:hover {
-    border-color: $bsides-sage;
-    box-shadow: 0 2px 8px rgba($bsides-sage, 0.15);
+    border-color: $bsides-grey-green;
+    box-shadow: 0 2px 8px rgba($bsides-grey-green, 0.15);
   }
 }
 
-// Footer styling - dark bg matching bsidesct.org footer
+// Footer - dark, matching bsidesct.org
 .footer {
   background-color: $bsides-dark;
-  color: $bsides-cream;
+  color: $bsides-white;
+  padding: 2rem 0;
 
   a {
-    color: $bsides-cream;
+    color: $bsides-white;
 
     &:hover {
-      color: $bsides-gold;
+      color: $bsides-ochre;
     }
   }
 }
 
-// Jumbotron / hero area
+// Jumbotron / hero
 .jumbotron {
-  background-color: $bsides-sage;
-  color: $bsides-cream;
+  background-color: $bsides-grey-green;
+  color: $bsides-white;
 
   h1, h2, h3 {
-    color: $bsides-cream;
+    color: $bsides-white;
   }
 
   a {
-    color: $bsides-cream;
-    text-decoration: underline !important;
+    color: $bsides-ochre;
 
     &:hover {
-      color: $bsides-gold;
+      color: $bsides-ochre-dark;
     }
   }
 }
 
-// Scoreboard
+// Tables
 .table {
   th {
     text-transform: uppercase;
     font-size: 0.8rem;
+    font-weight: 700;
     letter-spacing: 0.5px;
-    color: $bsides-gray;
+    color: $bsides-mid;
   }
 }
 
-// Alerts and notifications
+// Alerts
 .alert-success {
-  background-color: rgba($bsides-sage, 0.1);
-  border-color: $bsides-sage;
-  color: darken($bsides-sage, 20%);
+  background-color: $bsides-gg-light;
+  border-color: $bsides-grey-green;
+  color: $bsides-gg-dark;
 }
 
-// Gold accent for special elements
-.text-warning,
-.badge-warning {
-  color: $bsides-gold !important;
+.alert-info {
+  background-color: $bsides-blue-light;
+  border-color: $bsides-blue;
+  color: $bsides-blue-dark;
 }
 
-// BSides CT branding element
-.bsides-brand {
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 2px;
+.alert-warning {
+  background-color: $bsides-ochre-light;
+  border-color: $bsides-ochre;
+  color: $bsides-ochre-dark;
 }
