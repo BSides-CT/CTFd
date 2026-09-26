@@ -83,3 +83,7 @@ flask_profiler.sql
 
 # Security audit (local only)
 SECURITY_AUDIT.md
+setup_ctf.py
+pyproject.toml
+Justfile
+uv.lock
